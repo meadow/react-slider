@@ -1,0 +1,44 @@
+{
+  "name": "meadow-slider",
+  "version": "0.0.1",
+  "description": "Clean and simple Slider component. For when <input type=\"range\" /> just won't do.",
+  "main": "components/Slider.jsx",
+  "scripts": {
+    "build": "stylus < styles/Slider.styl > styles/Slider.css",
+    "test": "zuul -- test/**/*.{js,jsx}",
+    "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meadow/meadow-slider.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "component",
+    "slider",
+    "range",
+    "input",
+    "meadow"
+  ],
+  "author": "Timothy Kempf <tim@getmeadow.com> (http://www.getmeadow.com)",
+  "license": null,
+  "bugs": {
+    "url": "https://github.com/meadow/meadow-slider/issues"
+  },
+  "homepage": "https://github.com/meadow/meadow-slider#readme",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "dom-classes": "0.0.1",
+    "simple-mock": "^0.3.1",
+    "stylus": "^0.52.4",
+    "tape": "^4.2.0",
+    "watchify": "^3.4.0",
+    "zuul": "^3.5.0"
+  },
+  "dependencies": {
+    "classnames": "^2.1.3",
+    "react": "^0.13.3"
+  }
+}
