@@ -138,19 +138,19 @@ test('Slider can operate as an uncontrolled component', function (t) {
   var onChange = function (newValue) {
     value = newValue
   };
-  var controlledSlider = React.render(<Slider defaultValue={value} onChange={onChange} />, iframe.contentDocument.body);
-  var controlledSliderElement = React.findDOMNode(controlledSlider);
-  var controlledThumb = TestUtils.findRenderedDOMComponentWithClass(controlledSlider, 'slider__thumb');
-  var controlledThumbElement = React.findDOMNode(controlledThumb);
-  var controlledTrack = TestUtils.findRenderedDOMComponentWithClass(controlledSlider, 'slider__track');
-  var controlledTrackElement = React.findDOMNode(controlledTrack);
+  var uncontrolledSlider = React.render(<Slider defaultValue={value} onChange={onChange} />, iframe.contentDocument.body);
+  var uncontrolledSliderElement = React.findDOMNode(uncontrolledSlider);
+  var uncontrolledThumb = TestUtils.findRenderedDOMComponentWithClass(uncontrolledSlider, 'slider__thumb');
+  var uncontrolledThumbElement = React.findDOMNode(uncontrolledThumb);
+  var uncontrolledTrack = TestUtils.findRenderedDOMComponentWithClass(uncontrolledSlider, 'slider__track');
+  var uncontrolledTrackElement = React.findDOMNode(uncontrolledTrack);
   // Set slider dimensions for tests that depend on DOM dimensions
-  var controlledTrackLeft = controlledTrackElement.getBoundingClientRect().left;
-  var controlledSliderWidth = 100;
-  controlledSliderElement.style.height = '12px';
-  controlledSliderElement.style.width = controlledSliderWidth + 'px';
-  t.equal(controlledThumbElement.style.left, '50%', 'sets `slider__thumb` left to "50%"');
-  controlledSlider.calculatePositionAndSetValue(controlledTrackLeft + (controlledSliderWidth * 0.25));
+  var uncontrolledTrackLeft = uncontrolledTrackElement.getBoundingClientRect().left;
+  var uncontrolledSliderWidth = 100;
+  uncontrolledSliderElement.style.height = '12px';
+  uncontrolledSliderElement.style.width = uncontrolledSliderWidth + 'px';
+  t.equal(uncontrolledThumbElement.style.left, '50%', 'sets `slider__thumb` left to "50%"');
+  uncontrolledSlider.calculatePositionAndSetValue(uncontrolledTrackLeft + (uncontrolledSliderWidth * 0.25));
   t.equal(value, 25, 'emits proper value to onChange callback');
 });
 
