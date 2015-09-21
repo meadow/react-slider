@@ -107,7 +107,7 @@ var Slider = React.createClass({
         var sliderStyle = {
             left: stepPercent + '%'
         };
-        stepsJSX.push(<div className="slider__step" style={sliderStyle} />);
+        stepsJSX.push(<div className="slider__step" style={sliderStyle} key={i} />);
       }
     }
     return stepsJSX;
