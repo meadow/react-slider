@@ -36,6 +36,14 @@ var App = React.createClass({
 })
 ```
 
+##### Styles
+
+In order for this component to work, you **must** also include some styles. The easiest way to do so is by including the compiled CSS directly from this module:
+
+```styl
+import 'node_modules/meadow-slider/styles/Slider.css';
+```
+
 -----
 
 ### Props
