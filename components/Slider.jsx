@@ -29,6 +29,7 @@ var Slider = React.createClass({
     step: PropTypes.number,
     value: PropTypes.number,
     defaultValue: PropTypes.number,
+    onChange: PropTypes.func,
     className: PropTypes.string
   },
 
