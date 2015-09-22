@@ -3,7 +3,27 @@ var React = require('react/addons');
 var { TestUtils } = React.addons;
 var classes = require('dom-classes');
 
-var Slider = require('../../components/Slider.jsx');
+var Slider = require('../../components/Slider.js');
+
+var triggerEvent = function (target, name, properties) {
+  var event;
+  switch (name) {
+    case 'mousedown':
+    case 'mousemove':
+    case 'mouseup':
+      event = new MouseEvent(name, properties);
+    break;
+    case 'touchstart':
+    case 'touchmove':
+    case 'touchend':
+      event = new TouchEvent(name, properties);
+    break;
+    default:
+      event = new Event(name, properties);
+    break;
+  }
+  target.dispatchEvent(event);
+};
 
 var TestApp = React.createClass({
   getInitialState: () => new Object(),
@@ -81,19 +101,16 @@ test('Slider value set according to mousemove location', function (t) {
     pageX: trackLeft,
     button: 0
   });
-  slider.handleMouseMove({
-    pageX: trackLeft + (sliderWidth / 2),
-    preventDefault: () => {}
+  triggerEvent(window, 'mousemove', {
+    clientX: trackLeft + (sliderWidth / 2)
   });
   t.equal(slider.state.value, 50, 'sets slider value to 50 when mousemove is in middle of slider element');
-  slider.handleMouseMove({
-    pageX: trackLeft + (sliderWidth * 2),
-    preventDefault: () => {}
+  triggerEvent(window, 'mousemove', {
+    clientX: trackLeft + (sliderWidth * 2)
   });
   t.equal(slider.state.value, slider.props.max, 'sets slider value to max when mousemove is outside right bound of slider element');
-  slider.handleMouseMove({
-    pageX: trackLeft - sliderWidth,
-    preventDefault: () => {}
+  triggerEvent(window, 'mousemove', {
+    clientX: trackLeft - sliderWidth
   });
   t.equal(slider.state.value, slider.props.min, 'sets slider value to min when mousemove is outside left bound of slider element');
   reset();
@@ -105,18 +122,68 @@ test('Slider value set according to mouseup location', function (t) {
     pageX: trackLeft,
     button: 0
   });
-  slider.handleMouseUp({
-    pageX: trackLeft + (sliderWidth / 2)
+  triggerEvent(window, 'mouseup', {
+    clientX: trackLeft + (sliderWidth / 2)
   });
   t.equal(slider.state.value, 50, 'sets slider value to 50 when mouseup is in middle of slider element');
-  slider.handleMouseUp({
-    pageX: trackLeft + (sliderWidth * 2)
+  TestUtils.Simulate.mouseDown(sliderElement, {
+    pageX: trackLeft,
+    button: 0
+  });
+  triggerEvent(window, 'mouseup', {
+    clientX: trackLeft + (sliderWidth * 2)
   });
   t.equal(slider.state.value, slider.props.max, 'sets slider value to max when mouseup is outside right bound of slider element');
-  slider.handleMouseUp({
-    pageX: trackLeft - sliderWidth
+  TestUtils.Simulate.mouseDown(sliderElement, {
+    pageX: trackLeft,
+    button: 0
+  });
+  triggerEvent(window, 'mouseup', {
+    clientX: trackLeft - sliderWidth
   });
   t.equal(slider.state.value, slider.props.min, 'sets slider value to min when mouseup is outside left bound of slider element');
+  reset();
+});
+
+test('Slider value set according to touchstart location', function (t) {
+  t.plan(1);
+  TestUtils.Simulate.touchStart(sliderElement, {
+    touches: [{
+      pageX: trackLeft + (sliderWidth / 2)
+    }]
+  });
+  t.equal(slider.state.value, 50, 'sets slider value to 50 when touchstart is in middle of slider element');
+  reset();
+});
+
+test('Slider value set according to touchmove location', function (t) {
+  t.plan(3);
+  TestUtils.Simulate.touchStart(sliderElement, {
+    touches: [{
+      pageX: trackLeft
+    }]
+  });
+  slider.handleTouchMove({
+    touches: [{
+      pageX: trackLeft + (sliderWidth / 2)
+    }],
+    preventDefault: () => {}
+  });
+  t.equal(slider.state.value, 50, 'sets slider value to 50 when touchmove is in middle of slider element');
+  slider.handleTouchMove({
+    touches: [{
+      pageX: trackLeft + (sliderWidth * 2)
+    }],
+    preventDefault: () => {}
+  });
+  t.equal(slider.state.value, slider.props.max, 'sets slider value to max when touchmove is outside right bound of slider element');
+  slider.handleTouchMove({
+    touches: [{
+      pageX: trackLeft - sliderWidth
+    }],
+    preventDefault: () => {}
+  });
+  t.equal(slider.state.value, slider.props.min, 'sets slider value to min when touchmove is outside left bound of slider element');
   reset();
 });
 
