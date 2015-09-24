@@ -1,10 +1,11 @@
 {
   "name": "@meadow/react-slider",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.1",
   "description": "Clean and simple Slider component. For when <input type=\"range\" /> just won't do.",
-  "main": "components/Slider.jsx",
+  "main": "lib/components/Slider.js",
   "scripts": {
-    "build": "stylus < styles/Slider.styl > styles/Slider.css",
+    "prepublish": "npm run build",
+    "build": "mkdirp lib/styles && stylus styles --out lib/styles && mkdirp lib/components && babel components --out-dir lib/components",
     "test": "zuul -- test/**/*.{js,jsx}",
     "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}"
   },
@@ -28,9 +29,11 @@
   },
   "homepage": "https://github.com/meadow/react-slider#readme",
   "devDependencies": {
+    "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
     "dom-classes": "0.0.1",
+    "mkdirp": "^0.5.1",
     "react": "^0.13.3",
     "simple-mock": "^0.3.1",
     "stylus": "^0.52.4",

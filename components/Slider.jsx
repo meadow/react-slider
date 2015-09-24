@@ -97,6 +97,29 @@ var Slider = React.createClass({
     });
   },
 
+  handleTouchStart: function (event) {
+    event.preventDefault();
+    window.addEventListener('touchmove', this.handleTouchMove);
+    window.addEventListener('touchend', this.handleTouchEnd);
+    this.calculatePositionAndSetValue(event.touches[0].pageX);
+    this.setState({
+      active: true
+    });
+  },
+
+  handleTouchMove: function (event) {
+    event.preventDefault();
+    this.calculatePositionAndSetValue(event.touches[0].pageX);
+  },
+
+  handleTouchEnd: function (event) {
+    window.removeEventListener('touchmove', this.handleTouchMove);
+    window.removeEventListener('touchend', this.handleTouchEnd);
+    this.setState({
+      active: false
+    });
+  },
+
   renderSteps: function () {
     var stepsJSX = [];
     if (this.props.step) {
@@ -128,7 +151,11 @@ var Slider = React.createClass({
       left: valuePercent + '%'
     };
     return (
-      <div className={sliderClassName} onMouseDown={this.handleSliderMouseDown}>
+      <div
+        className={sliderClassName}
+        onMouseDown={this.handleSliderMouseDown}
+        onTouchStart={this.handleTouchStart}
+      >
         <div className="slider__track" ref="track">
           {stepsJSX}
           <div className="slider__thumb" style={thumbStyle}></div>
