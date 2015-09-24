@@ -3,7 +3,7 @@ var React = require('react/addons');
 var { TestUtils } = React.addons;
 var classes = require('dom-classes');
 
-var Slider = require('../../components/Slider.js');
+var Slider = require('../../components/Slider.jsx');
 
 var triggerEvent = function (target, name, properties) {
   var event;
