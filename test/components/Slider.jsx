@@ -2,28 +2,9 @@ var test = require('tape');
 var React = require('react/addons');
 var { TestUtils } = React.addons;
 var classes = require('dom-classes');
+var triggerEvent = require('@fauntleroy/trigger-event');
 
 var Slider = require('../../components/Slider.jsx');
-
-var triggerEvent = function (target, name, properties) {
-  var event;
-  switch (name) {
-    case 'mousedown':
-    case 'mousemove':
-    case 'mouseup':
-      event = new MouseEvent(name, properties);
-    break;
-    case 'touchstart':
-    case 'touchmove':
-    case 'touchend':
-      event = new TouchEvent(name, properties);
-    break;
-    default:
-      event = new Event(name, properties);
-    break;
-  }
-  target.dispatchEvent(event);
-};
 
 var TestApp = React.createClass({
   getInitialState: () => new Object(),
