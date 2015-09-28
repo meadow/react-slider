@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/meadow/react-slider#readme",
   "devDependencies": {
-    "@fauntleroy/trigger-event": "^1.0.0",
+    "@fauntleroy/trigger-event": "^1.0.1",
     "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
