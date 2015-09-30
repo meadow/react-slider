@@ -1,8 +1,7 @@
 'use strict';
 
-var React = require('react');
-var PropTypes = React.PropTypes;
-var cx = require('classnames');
+import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
 var capitalize = function (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -165,4 +164,4 @@ var Slider = React.createClass({
   }
 });
 
-module.exports = Slider;
+export default Slider;

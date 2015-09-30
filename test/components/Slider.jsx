@@ -1,10 +1,10 @@
-var test = require('tape');
-var React = require('react/addons');
-var { TestUtils } = React.addons;
-var classes = require('dom-classes');
-var triggerEvent = require('@fauntleroy/trigger-event');
+import test from 'tape';
+import React from 'react/addons';
+var TestUtils = React.addons.TestUtils;
+import classes from 'dom-classes';
+import triggerEvent from '@fauntleroy/trigger-event';
 
-var Slider = require('../../components/Slider.jsx');
+import Slider from '../../components/Slider.jsx';
 
 var TestApp = React.createClass({
   getInitialState: () => new Object(),
