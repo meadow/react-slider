@@ -111,7 +111,7 @@ var Slider = React.createClass({
     this.calculatePositionAndSetValue(event.touches[0].pageX);
   },
 
-  handleTouchEnd: function (event) {
+  handleTouchEnd: function () {
     window.removeEventListener('touchmove', this.handleTouchMove);
     window.removeEventListener('touchend', this.handleTouchEnd);
     this.setState({
@@ -127,7 +127,7 @@ var Slider = React.createClass({
         var stepValueOffset = i * this.props.step;
         var stepPercent = (stepValueOffset / (this.props.max - this.props.min)) * 100;
         var sliderStyle = {
-            left: stepPercent + '%'
+          left: stepPercent + '%'
         };
         stepsJSX.push(<div className="slider__step" style={sliderStyle} key={i} />);
       }
@@ -153,8 +153,8 @@ var Slider = React.createClass({
       <div
         className={sliderClassName}
         onMouseDown={this.handleSliderMouseDown}
-        onTouchStart={this.handleTouchStart}
-      >
+        onTouchStart={this.handleTouchStart}>
+
         <div className="slider__track" ref="track">
           {stepsJSX}
           <div className="slider__thumb" style={thumbStyle}></div>

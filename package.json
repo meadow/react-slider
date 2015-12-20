@@ -9,7 +9,8 @@
     "build": "mkdirp lib/styles && stylus styles --out lib/styles && mkdirp lib/components && babel components --out-dir lib/components",
     "clean": "trash lib",
     "test": "zuul -- test/**/*.{js,jsx}",
-    "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}"
+    "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}",
+    "lint": "eslint components --ext .js --ext .jsx"
   },
   "repository": {
     "type": "git",
@@ -32,10 +33,13 @@
   "homepage": "https://github.com/meadow/react-slider#readme",
   "devDependencies": {
     "@fauntleroy/trigger-event": "^1.0.1",
+    "@meadow/eslint-config": "^1.1.0",
     "babel": "^5.8.23",
+    "babel-eslint": "^4.1.6",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
     "dom-classes": "0.0.1",
+    "eslint": "^1.10.3",
     "mkdirp": "^0.5.1",
     "react": "^0.13.3",
     "simple-mock": "^0.3.1",
