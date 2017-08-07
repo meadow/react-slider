@@ -34,8 +34,11 @@
   "devDependencies": {
     "@fauntleroy/trigger-event": "^1.0.1",
     "@meadow/eslint-config": "^1.1.0",
-    "babel": "^5.8.23",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
     "babel-eslint": "^4.1.6",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babelify": "^6.3.0",
     "browserify": "^11.1.0",
     "dom-classes": "0.0.1",
