@@ -13,7 +13,7 @@ Clean and simple Slider component. For when `<input type="range" />` just won't 
 This component is designed for use with Browserify (but should work with anything CommonJS compatible). You can easily install it with npm:
 
 ```
-npm install meadow/meadow-slider
+npm install @meadow/react-slider
 ```
 
 -----
@@ -23,7 +23,7 @@ npm install meadow/meadow-slider
 Meadow Slider is a drop-in replacement for `<input type="range" />` with a couple extras here and there. Basic usage looks something like this:
 
 ```jsx
-var Slider = require('meadow-slider');
+var Slider = require('@meadow/react-slider');
 
 var App = React.createClass({
   render: function () {
@@ -41,7 +41,7 @@ var App = React.createClass({
 In order for this component to work, you **must** also include some styles. The easiest way to do so is by including the compiled CSS directly from this module:
 
 ```styl
-import 'node_modules/meadow-slider/styles/Slider.css';
+import 'node_modules/@meadow/react-slider/lib/styles/Slider.css';
 ```
 
 -----
