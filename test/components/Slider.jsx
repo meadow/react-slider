@@ -1,6 +1,7 @@
 import test from 'tape';
-import React from 'react/addons';
-var TestUtils = React.addons.TestUtils;
+import React from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
+import TestUtils from 'react-dom/test-utils';
 import classes from 'dom-classes';
 import triggerEvent from '@fauntleroy/trigger-event';
 
@@ -15,13 +16,15 @@ var TestApp = React.createClass({
 // TestUtils.renderIntoDocument won't work because some tests depend on DOM dimensions
 var iframe = document.createElement('iframe');
 document.body.appendChild(iframe);
-var testApp = React.render(<TestApp />, iframe.contentDocument.body);
+iframe.contentDocument.body.innerHTML = '<div id="app"></div>';
+var appElement = iframe.contentDocument.body.querySelector('#app');
+var testApp = ReactDOM.render(<TestApp />, appElement);
 var slider = TestUtils.findRenderedComponentWithType(testApp, Slider);
-var sliderElement = React.findDOMNode(slider);
+var sliderElement = findDOMNode(slider);
 var track = TestUtils.findRenderedDOMComponentWithClass(testApp, 'slider__track');
-var trackElement = React.findDOMNode(track);
+var trackElement = findDOMNode(track);
 var thumb = TestUtils.findRenderedDOMComponentWithClass(testApp, 'slider__thumb');
-var thumbElement = React.findDOMNode(thumb);
+var thumbElement = findDOMNode(thumb);
 // Set slider dimensions for tests that depend on DOM dimensions
 var trackLeft = trackElement.getBoundingClientRect().left;
 var sliderWidth = 100;
@@ -186,12 +189,12 @@ test('Slider can operate as an uncontrolled component', function (t) {
   var onChange = function (newValue) {
     value = newValue
   };
-  var uncontrolledSlider = React.render(<Slider defaultValue={value} onChange={onChange} />, iframe.contentDocument.body);
-  var uncontrolledSliderElement = React.findDOMNode(uncontrolledSlider);
+  var uncontrolledSlider = ReactDOM.render(<Slider defaultValue={value} onChange={onChange} />, appElement);
+  var uncontrolledSliderElement = findDOMNode(uncontrolledSlider);
   var uncontrolledThumb = TestUtils.findRenderedDOMComponentWithClass(uncontrolledSlider, 'slider__thumb');
-  var uncontrolledThumbElement = React.findDOMNode(uncontrolledThumb);
+  var uncontrolledThumbElement = findDOMNode(uncontrolledThumb);
   var uncontrolledTrack = TestUtils.findRenderedDOMComponentWithClass(uncontrolledSlider, 'slider__track');
-  var uncontrolledTrackElement = React.findDOMNode(uncontrolledTrack);
+  var uncontrolledTrackElement = findDOMNode(uncontrolledTrack);
   // Set slider dimensions for tests that depend on DOM dimensions
   var uncontrolledTrackLeft = uncontrolledTrackElement.getBoundingClientRect().left;
   var uncontrolledSliderWidth = 100;

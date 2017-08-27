@@ -53,7 +53,7 @@ var Slider = React.createClass({
   },
 
   calculatePositionAndSetValue: function (pageX) {
-    var trackElement = this.refs.track.getDOMNode();
+    var trackElement = this.refs.track.getBoundingClientRect ? this.refs.track : this.refs.track.getDOMNode();
     var mousePosition = pageX - trackElement.getBoundingClientRect().left;
     var positionRatio = mousePosition / trackElement.offsetWidth;
     var offsetNewValue = ((this.props.max - this.props.min) * positionRatio);
