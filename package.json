@@ -1,6 +1,6 @@
 {
   "name": "@meadow/react-slider",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Clean and simple Slider component. For when <input type=\"range\" /> just won't do.",
   "main": "lib/components/Slider.js",
   "scripts": {
