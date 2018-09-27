@@ -4,10 +4,10 @@
   "description": "Clean and simple Slider component. For when <input type=\"range\" /> just won't do.",
   "main": "dist/components/slider.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run clean && npm run build",
     "postpublish": "npm run clean",
     "build": "mkdirp dist/styles && stylus src/styles --out dist/styles && mkdirp dist/components && babel src/components --out-dir dist/components",
-    "clean": "trash lib",
+    "clean": "trash dist",
     "test": "zuul -- test/**/*.{js,jsx}",
     "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}",
     "lint": "eslint src/components --ext .js --ext .jsx"
