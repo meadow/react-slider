@@ -1,16 +1,16 @@
 {
   "name": "@meadow/react-slider",
-  "version": "2.0.0-alpha.2",
+  "version": "3.0.0-alpha.1",
   "description": "Clean and simple Slider component. For when <input type=\"range\" /> just won't do.",
-  "main": "lib/components/Slider.js",
+  "main": "dist/components/slider.js",
   "scripts": {
     "prepublish": "npm run build",
     "postpublish": "npm run clean",
-    "build": "mkdirp lib/styles && stylus styles --out lib/styles && mkdirp lib/components && babel components --out-dir lib/components",
+    "build": "mkdirp dist/styles && stylus src/styles --out dist/styles && mkdirp dist/components && babel src/components --out-dir dist/components",
     "clean": "trash lib",
     "test": "zuul -- test/**/*.{js,jsx}",
     "test:browser": "zuul --local 55555 -- test/**/*.{js,jsx}",
-    "lint": "eslint components --ext .js --ext .jsx"
+    "lint": "eslint src/components --ext .js --ext .jsx"
   },
   "repository": {
     "type": "git",
@@ -32,30 +32,33 @@
   },
   "homepage": "https://github.com/meadow/react-slider#readme",
   "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "@fauntleroy/trigger-event": "^1.0.1",
-    "@meadow/eslint-config": "^1.1.0",
-    "babel-cli": "6.26.0",
-    "babel-eslint": "^7.2.3",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-react": "6.24.1",
-    "babelify": "7.3.0",
-    "browserify": "14.4.0",
-    "dom-classes": "0.0.1",
-    "eslint": "4.5.0",
+    "@meadow/eslint-config": "^5.0.3",
+    "babelify": "10.0.0",
+    "browserify": "^16.2.3",
+    "dom-classes": "1.0.0",
+    "eslint": "5.6.0",
     "mkdirp": "^0.5.1",
-    "react": "15.6.1",
-    "react-dom": "^15.6.1",
-    "simple-mock": "^0.3.1",
-    "stylus": "^0.52.4",
-    "tape": "4.8.0",
-    "trash": "^2.0.0",
-    "watchify": "3.9.0",
-    "zuul": "3.11.0"
+    "react": "^16.5.2",
+    "react-addons-test-utils": "^0.14.8",
+    "react-dom": "^16.5.2",
+    "simple-mock": "^0.8.0",
+    "stylus": "^0.54.5",
+    "tape": "4.9.1",
+    "trash": "^4.3.0",
+    "watchify": "^3.11.0",
+    "zuul": "3.12.0"
   },
   "peerDependencies": {
-    "react": ">=0.13.0"
+    "react": "0.14.x || 15.x || 16.x"
   },
   "dependencies": {
-    "classnames": "^2.2.1"
+    "classnames": "^2.2.6",
+    "create-react-class": "^15.6.3",
+    "prop-types": "^15.6.2"
   }
 }

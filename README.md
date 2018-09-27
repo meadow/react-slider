@@ -23,17 +23,15 @@ npm install @meadow/react-slider
 Meadow Slider is a drop-in replacement for `<input type="range" />` with a couple extras here and there. Basic usage looks something like this:
 
 ```jsx
-var Slider = require('@meadow/react-slider');
+import Slider from '@meadow/react-slider';
 
-var App = React.createClass({
-  render: function () {
-    return (
-      <div>
-        <Slider min={5} max={150} />
-      </div>
-    )
-  }
-})
+const App = function () {
+  return (
+    <div>
+      <Slider min={5} max={150} />
+    </div>
+  )
+}
 ```
 
 ##### Styles
@@ -41,7 +39,7 @@ var App = React.createClass({
 In order for this component to work, you **must** also include some styles. The easiest way to do so is by including the compiled CSS directly from this module:
 
 ```styl
-import 'node_modules/@meadow/react-slider/lib/styles/Slider.css';
+import 'node_modules/@meadow/react-slider/dist/styles/slider.css';
 ```
 
 -----

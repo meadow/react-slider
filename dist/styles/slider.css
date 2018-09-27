@@ -1,0 +1,106 @@
+.slider {
+  width: 128px;
+  padding: 0 8px;
+}
+.slider .slider__track {
+  padding: 4px 0;
+}
+.slider .slider__track:after {
+  height: 8px;
+  margin: 0 -8px;
+  border-radius: 4px;
+}
+.slider .slider__thumb {
+  width: 16px;
+  height: 16px;
+  margin: -4px 0 0 -8px;
+}
+.slider .slider__step {
+  width: 4px;
+  height: 4px;
+  margin: 2px 0 0 -2px;
+}
+.slider__track,
+.slider__thumb {
+  cursor: pointer;
+}
+.slider__track {
+  box-sizing: border-box;
+  position: relative;
+}
+.slider__track:after {
+  content: '';
+  display: block;
+  background: rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.25), inset 0 1px 1px rgba(0,0,0,0.15);
+  transition: background-color 275ms ease-out 250ms;
+}
+.slider:hover .slider__track:after,
+.slider--active .slider__track:after {
+  background: rgba(0,0,0,0.075);
+  transition: background-color 50ms ease-in;
+}
+.slider__thumb {
+  box-sizing: border-box;
+  position: absolute;
+  border: 0 solid transparent;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
+  transition: border 100ms ease-out;
+}
+.slider__step {
+  box-sizing: border-box;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.35);
+}
+.slider--active .slider__thumb {
+  border-width: 3px;
+  transition: border 75ms ease-in;
+}
+.slider--small {
+  width: 96px;
+  padding: 0 6px;
+}
+.slider--small .slider__track {
+  padding: 3px 0;
+}
+.slider--small .slider__track:after {
+  height: 6px;
+  margin: 0 -6px;
+  border-radius: 3px;
+}
+.slider--small .slider__thumb {
+  width: 12px;
+  height: 12px;
+  margin: -3px 0 0 -6px;
+}
+.slider--small .slider__step {
+  width: 3px;
+  height: 3px;
+  margin: 1.5px 0 0 -1.5px;
+}
+.slider--large {
+  width: 192px;
+  padding: 0 12px;
+}
+.slider--large .slider__track {
+  padding: 6px 0;
+}
+.slider--large .slider__track:after {
+  height: 12px;
+  margin: 0 -12px;
+  border-radius: 6px;
+}
+.slider--large .slider__thumb {
+  width: 24px;
+  height: 24px;
+  margin: -6px 0 0 -12px;
+}
+.slider--large .slider__step {
+  width: 6px;
+  height: 6px;
+  margin: 3px 0 0 -3px;
+}

@@ -1,13 +1,14 @@
 import test from 'tape';
 import React from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
+import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 import classes from 'dom-classes';
 import triggerEvent from '@fauntleroy/trigger-event';
 
-import Slider from '../../components/Slider.jsx';
+import Slider from '../../src/components/slider.jsx';
 
-var TestApp = React.createClass({
+var TestApp = createReactClass({
   getInitialState: () => new Object(),
   render: function () {
     return <Slider {...this.state} />;

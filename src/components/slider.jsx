@@ -1,13 +1,13 @@
-'use strict';
-
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
-var capitalize = function (string) {
+function capitalize (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
-};
+}
 
-var limitToBoundary = function (number, min, max) {
+function limitToBoundary (number, min, max) {
   if (number > max) {
     number = max;
   }
@@ -15,54 +15,58 @@ var limitToBoundary = function (number, min, max) {
     number = min;
   }
   return number;
-};
+}
 
-var limitToStep = function (number, step) {
+function limitToStep (number, step) {
   return Math.round(number / step) * step;
-};
+}
 
-var Slider = React.createClass({
+const Slider = createReactClass({
   propTypes: {
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
     value: PropTypes.number,
     defaultValue: PropTypes.number,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func, // eslint-disable-line
     className: PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps () {
     return {
+      className: null,
+      defaultValue: null,
       min: 0,
-      max: 100
+      max: 100,
+      step: null,
+      value: null,
+      onChange: null
     };
   },
 
-  getInitialState: function () {
+  getInitialState () {
     return {
       value: this.props.defaultValue
     };
   },
 
-  triggerEvent: function (eventName, eventData) {
-    var handler = this.props['on' + capitalize(eventName)];
+  triggerEvent (eventName, eventData) {
+    const handler = this.props[`on${capitalize(eventName)}`];
     if (handler) {
       handler(eventData);
     }
   },
 
-  calculatePositionAndSetValue: function (pageX) {
-    var trackElement = this.refs.track.getBoundingClientRect ? this.refs.track : this.refs.track.getDOMNode();
-    var mousePosition = pageX - trackElement.getBoundingClientRect().left;
-    var positionRatio = mousePosition / trackElement.offsetWidth;
-    var offsetNewValue = ((this.props.max - this.props.min) * positionRatio);
-    if (this.props.step) {
-      offsetNewValue = limitToStep(offsetNewValue, this.props.step);
+  calculatePositionAndSetValue (pageX) {
+    const { max, min, step, value } = this.props;
+    const mousePosition = pageX - this.trackElement.getBoundingClientRect().left;
+    const positionRatio = mousePosition / this.trackElement.offsetWidth;
+    let offsetNewValue = ((max - min) * positionRatio);
+    if (step) {
+      offsetNewValue = limitToStep(offsetNewValue, step);
     }
-    var newValue = offsetNewValue + this.props.min;
-    newValue = limitToBoundary(newValue, this.props.min, this.props.max);
-    if (!this.props.value) {
+    const newValue = limitToBoundary((offsetNewValue + min), min, max);
+    if (!value) {
       this.setState({
         value: newValue
       });
@@ -70,7 +74,11 @@ var Slider = React.createClass({
     this.triggerEvent('change', newValue);
   },
 
-  handleSliderMouseDown: function (event) {
+  createTrackRef (trackElement) {
+    this.trackElement = trackElement;
+  },
+
+  handleSliderMouseDown (event) {
     if (event.button === 0 && event.buttons !== 2) {
       event.preventDefault();
       window.addEventListener('mousemove', this.handleMouseMove);
@@ -82,12 +90,12 @@ var Slider = React.createClass({
     }
   },
 
-  handleMouseMove: function (event) {
+  handleMouseMove (event) {
     event.preventDefault();
     this.calculatePositionAndSetValue(event.pageX);
   },
 
-  handleMouseUp: function (event) {
+  handleMouseUp (event) {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
     this.calculatePositionAndSetValue(event.pageX);
@@ -96,7 +104,7 @@ var Slider = React.createClass({
     });
   },
 
-  handleTouchStart: function (event) {
+  handleTouchStart (event) {
     event.preventDefault();
     window.addEventListener('touchmove', this.handleTouchMove);
     window.addEventListener('touchend', this.handleTouchEnd);
@@ -106,12 +114,12 @@ var Slider = React.createClass({
     });
   },
 
-  handleTouchMove: function (event) {
+  handleTouchMove (event) {
     event.preventDefault();
     this.calculatePositionAndSetValue(event.touches[0].pageX);
   },
 
-  handleTouchEnd: function () {
+  handleTouchEnd () {
     window.removeEventListener('touchmove', this.handleTouchMove);
     window.removeEventListener('touchend', this.handleTouchEnd);
     this.setState({
@@ -119,45 +127,48 @@ var Slider = React.createClass({
     });
   },
 
-  renderSteps: function () {
-    var stepsJSX = [];
-    if (this.props.step) {
-      var numberOfSteps = Math.floor((this.props.max - this.props.min) / this.props.step);
-      for (var i = 0; i <= numberOfSteps; i++) {
-        var stepValueOffset = i * this.props.step;
-        var stepPercent = (stepValueOffset / (this.props.max - this.props.min)) * 100;
-        var sliderStyle = {
-          left: stepPercent + '%'
+  renderSteps () {
+    const { max, min, step } = this.props;
+    const stepsJSX = [];
+
+    if (step) {
+      const numberOfSteps = Math.floor((max - min) / step);
+      for (let i = 0; i <= numberOfSteps; i++) {
+        const stepValueOffset = i * step;
+        const stepPercent = (stepValueOffset / (max - min)) * 100;
+        const sliderStyle = {
+          left: `${stepPercent}%`
         };
         stepsJSX.push(<div className="slider__step" style={sliderStyle} key={i} />);
       }
     }
+
     return stepsJSX;
   },
 
-  render: function () {
-    var sliderClassName = cx({
+  render () {
+    const { className, max, min } = this.props;
+    const { active } = this.state;
+    const sliderClassName = cx(className, {
       slider: true,
-      'slider--active': this.state.active
+      'slider--active': active
     });
-    if (this.props.className) {
-      sliderClassName = sliderClassName + ' ' + this.props.className;
-    }
-    var value = this.props.value || this.state.value;
-    var valuePercent = ((value - this.props.min) / (this.props.max - this.props.min)) * 100;
-    var stepsJSX = this.renderSteps();
-    var thumbStyle = {
-      left: valuePercent + '%'
+    const value = this.props.value || this.state.value;
+    const valuePercent = ((value - min) / (max - min)) * 100;
+    const stepsJSX = this.renderSteps();
+    const thumbStyle = {
+      left: `${valuePercent}%`
     };
+
     return (
       <div
         className={sliderClassName}
         onMouseDown={this.handleSliderMouseDown}
         onTouchStart={this.handleTouchStart}>
 
-        <div className="slider__track" ref="track">
+        <div className="slider__track" ref={this.createTrackRef}>
           {stepsJSX}
-          <div className="slider__thumb" style={thumbStyle}></div>
+          <div className="slider__thumb" style={thumbStyle} />
         </div>
       </div>
     );
